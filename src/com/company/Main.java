@@ -1,6 +1,6 @@
 package com.company;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -10,37 +10,57 @@ public class Main {
         System.out.println("87  Regular\n89  Mid-Grade\n93  Premium");
     }
 
-    public static void payType(){
+    public static void payType() {
         System.out.println("How would you like to pay? ");
         System.out.println("1.\t Prepay");
         System.out.println("2.\tPay After");
     }
 
-    public static void paying(Integer type, Integer payment, Double money){
+    public static void paying(Integer type, Integer payment, Double money) {
         if (payment.equals(1)) {
             Converting moneyToGallons = new Converting(type);
             System.out.println(moneyToGallons.prePay(money, type));
-        }else if (payment.equals(2)){
+        } else if (payment.equals(2)) {
             Converting gallonsToMoney = new Converting(type);
             System.out.println(gallonsToMoney.payAfter(money, type));
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        File file = new File("/home/basecamp/IdeaProjects/GasPump/src/com/company/inventory.txt");
+    public static ArrayList<Converting> loadInventoryInFile() throws IOException {
+        BufferedReader br = null;
+        FileReader fr = null;
 
-        Scanner input = new Scanner(file);
+        fr = new FileReader("/home/basecamp/IdeaProjects/GasPump/src/com/company/inventory.txt");
+        br = new BufferedReader(fr);
 
+        String Line = "";
+        String[] FirstLine = br.readLine().toString().split(", ");
+        String[] RegularList = br.readLine().toString().split(", ");
+        String[] MidList = br.readLine().toString().split(", ");
+        String[] PremiumList = br.readLine().toString().split(", ");
 
-        while (input.hasNextLine()) {
-            String line = input.nextLine();
-            System.out.println(line);
-        }
-        input.close();
+        Converting RegularType =  new Converting(Integer.parseInt(RegularList[0]));
+        Converting MidGrade = new Converting(Integer.parseInt(MidList[0]));
+        Converting Premium = new Converting(Integer.parseInt(PremiumList[0]));
+
+        return new ArrayList<Converting>() {
+            {
+                System.out.println(RegularType.payAfter(23.3, Integer.parseInt(RegularList[0])));
+//                add(Regular);
+//                add(MidGrade);
+//                add(Premium);
+            }
+        };
+//        Scanner input = new Scanner(file);
+//        input.nextLine();
+//        while (input.hasNextLine()) {
+//            String type = input.nextLine();
+//            System.out.println(type);
+//        }
+//        input.close();
     }
 
-
-//    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        Scanner scan = new Scanner(System.in);
 //        greetings();
 //        System.out.println("Which one would you like?   (Please Choose a Number)");
@@ -57,5 +77,6 @@ public class Main {
 //            Double gallons = scan.nextDouble();
 //            paying(type, paymentType, gallons);
 //        }
-//    }
+        loadInventoryInFile();
+    }
 }
