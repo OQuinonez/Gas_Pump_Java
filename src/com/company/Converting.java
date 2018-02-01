@@ -2,13 +2,13 @@ package com.company;
 import java.util.Scanner;
 
 public class Converting {
-//    public Double price;
-//    public Double gallons;
-    public Integer typeOfGas;
+    public Double amountMoney;
+    public Double gallons;
+    public String typeOfGas;
 
-    public Converting(Integer typeOfGas){
-//        this.price = price;
-//        this.gallons = gallons;
+    public Converting(String typeOfGas, Double gallons, Double amountMoney){
+        this.amountMoney = amountMoney;
+        this.gallons = gallons;
         this.typeOfGas = typeOfGas;
     }
 
@@ -16,29 +16,23 @@ public class Converting {
         double gallons = 0.0;
         if (typeOfGas.equals(87)) {
             gallons = (money / 2.05);
-            return gallons;
         }else if (typeOfGas.equals(89)){
             gallons = (money / 2.13);
-            return gallons;
         }else if (typeOfGas.equals(93)){
             gallons = (money / 2.22);
-            return gallons;
         }
-        return gallons;
+        return Math.round(gallons);
     }
 
     public double payAfter(Double gallons, Integer typeOfGas){
         double money = 0.0;
         if(typeOfGas.equals(87)){
             money = (gallons * 2.05);
-            return money;
         }else if (typeOfGas.equals(89)){
             money = (gallons * 2.13);
-            return money;
         }else if (typeOfGas.equals(93)){
             money = (gallons * 2.22);
-            return money;
         }
-        return money;
+        return Math.round(money);
     }
 }
