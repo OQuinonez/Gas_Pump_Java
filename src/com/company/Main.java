@@ -22,7 +22,7 @@ public class Main {
             gastype = "Regular";
         } else if (type.equals(89)) {
             gastype = "Mid-Grade";
-        } else if (type.equals(92)) {
+        } else if (type.equals(93)) {
             gastype = "Premium";
         }return gastype;
     }
@@ -74,6 +74,14 @@ public class Main {
         writer.close();
     }
 
+
+    public static void displayCustomerInfo (String gasType, Double gallons, Double money) {
+        System.out.println("Type of Gas Pumped: " + gasType);
+        System.out.println("Total Gallons: " + gallons);
+        System.out.println("Total Paid: " + money);
+    }
+
+
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         greetings();
@@ -89,17 +97,21 @@ public class Main {
             Converting displayGallons = new Converting(gasType, 0.0, money);
             Double totalGals = displayGallons.prePay(money, type);
 
-            System.out.println("Type of Gas Pumped: " + gasType);
-            System.out.println("Total Gallons: " + totalGals);
-            System.out.println("Total Paid: " + money);
+            displayCustomerInfo(gasType, totalGals, money);
+
+            updateTransactions(gasType, totalGals, money);
         }
         else if (paymentType.equals(2)){
             String gasType = whatTypeGas(type);
             System.out.println("How many gallons would you like? ");
             Double gallons = scan.nextDouble();
-            payType();
+            Converting displayMoney = new Converting(gasType, gallons, 0.0);
+            Double totalMoney = displayMoney.payAfter(gallons, type);
 
-//            paying(type, paymentType, gallons);
+            displayCustomerInfo(gasType, gallons, totalMoney);
+
+            updateTransactions(gasType, gallons, totalMoney);
+
         }
     }
 }
