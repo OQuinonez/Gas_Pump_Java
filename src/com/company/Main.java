@@ -16,6 +16,16 @@ public class Main {
         System.out.println("2.\tPay After");
     }
 
+    public static String whatTypeGas(Integer type){
+        String gastype = "";
+        if (type.equals("87")) {
+            gastype = "Regular";
+        } else if (type.equals("89")) {
+            gastype = "Mid-Grade";
+        } else if (type.equals("92")) {
+            gastype = "Premium";
+        }return gastype;
+    }
 //    public static void paying(Integer type, Integer payment, Double money) {
 //        if (payment.equals(1)) {
 //            Converting moneyToGallons = new Converting(type);
@@ -40,9 +50,9 @@ public class Main {
         String[] PremiumList = br.readLine().toString().split(", ");
 
 
-        Converting Regular =  new Converting(Integer.parseInt(RegularList[0]));
-        Converting MidGrade = new Converting(Integer.parseInt(MidList[0]));
-        Converting Premium = new Converting(Integer.parseInt(PremiumList[0]));
+        Converting Regular =  new Converting(RegularList[0], Double.parseDouble(RegularList[1]), Double.parseDouble(RegularList[2]) );
+        Converting MidGrade = new Converting(MidList[0], Double.parseDouble(MidList[1]), Double.parseDouble(MidList[2]));
+        Converting Premium = new Converting(PremiumList[0], Double.parseDouble(PremiumList[1]), Double.parseDouble(PremiumList[2]));
 
         return new ArrayList<Converting>() {
             {
@@ -69,28 +79,27 @@ public class Main {
 
     public static void updateTransactions(String gastype, double printGallons, double printCost) throws IOException {
         FileWriter writer = new FileWriter("/home/basecamp/IdeaProjects/GasPump/src/com/company/transactions.txt",true);
-        //once the file is opened and written into, it has to be closed also
         writer.write("\n" + gastype + ", " + printGallons + ", " + printCost);
         writer.close();
     }
 
 
-//    public static void main(String[] args) throws IOException {
-//        Scanner scan = new Scanner(System.in);
-//        greetings();
-//        System.out.println("Which one would you like?   (Please Choose a Number)");
-//        Integer type = scan.nextInt();
-//        payType();
-//        Integer paymentType = scan.nextInt();
-//        if (paymentType.equals(1)) {
-//            System.out.println("How much would you like to put? ");
-//            Double money = scan.nextDouble();
+    public static void main(String[] args) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        greetings();
+        System.out.println("Which one would you like?   (Please Choose a Number)");
+        Integer type = scan.nextInt();
+        payType();
+        Integer paymentType = scan.nextInt();
+        if (paymentType.equals(1)) {
+            System.out.println("How much would you like to put? ");
+            Double money = scan.nextDouble();
 //            paying(type, paymentType, money);
-//        }
-//        else if (paymentType.equals(2)){
-//            System.out.println("How many gallons would you like? ");
-//            Double gallons = scan.nextDouble();
+        }
+        else if (paymentType.equals(2)){
+            System.out.println("How many gallons would you like? ");
+            Double gallons = scan.nextDouble();
 //            paying(type, paymentType, gallons);
-//        }
-//    }
+        }
+    }
 }
