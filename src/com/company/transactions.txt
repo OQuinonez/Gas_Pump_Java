@@ -1,0 +1,5 @@
+Gas-Type, Gallons, Profit
+Regular, 15.0, 30.0
+Premium, 30.0, 67.0
+Regular, 10.0, 20.0
+Premium, 20.0, 44.0
