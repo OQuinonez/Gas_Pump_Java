@@ -16,15 +16,15 @@ public class Main {
         System.out.println("2.\tPay After");
     }
 
-    public static void paying(Integer type, Integer payment, Double money) {
-        if (payment.equals(1)) {
-            Converting moneyToGallons = new Converting(type);
-            System.out.println(moneyToGallons.prePay(money, type));
-        } else if (payment.equals(2)) {
-            Converting gallonsToMoney = new Converting(type);
-            System.out.println(gallonsToMoney.payAfter(money, type));
-        }
-    }
+//    public static void paying(Integer type, Integer payment, Double money) {
+//        if (payment.equals(1)) {
+//            Converting moneyToGallons = new Converting(type);
+//            System.out.println(moneyToGallons.prePay(money, type));
+//        } else if (payment.equals(2)) {
+//            Converting gallonsToMoney = new Converting(type);
+//            System.out.println(gallonsToMoney.payAfter(money, type));
+//        }
+//    }
 
     public static ArrayList<Converting> loadInventoryInFile() throws IOException {
         BufferedReader br = null;
@@ -34,21 +34,21 @@ public class Main {
         br = new BufferedReader(fr);
 
         String Line = "";
-        String[] FirstLine = br.readLine().toString().split(", ");
+        br.readLine().toString().split(", ");
         String[] RegularList = br.readLine().toString().split(", ");
         String[] MidList = br.readLine().toString().split(", ");
         String[] PremiumList = br.readLine().toString().split(", ");
 
-        Converting RegularType =  new Converting(Integer.parseInt(RegularList[0]));
+
+        Converting Regular =  new Converting(Integer.parseInt(RegularList[0]));
         Converting MidGrade = new Converting(Integer.parseInt(MidList[0]));
         Converting Premium = new Converting(Integer.parseInt(PremiumList[0]));
 
         return new ArrayList<Converting>() {
             {
-                System.out.println(RegularType.payAfter(23.3, Integer.parseInt(RegularList[0])));
-//                add(Regular);
-//                add(MidGrade);
-//                add(Premium);
+                add(Regular);
+                add(MidGrade);
+                add(Premium);
             }
         };
 //        Scanner input = new Scanner(file);
@@ -60,7 +60,22 @@ public class Main {
 //        input.close();
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void saveInventoryInFile(ArrayList<Converting> inventory) throws IOException {
+        FileWriter writer = new FileWriter("/home/basecamp/IdeaProjects/GasPump/src/com/company/inventory.txt");
+        writer.write(inventory.get(0).typeOfGas + "," + inventory.get(0).amountMoney + "," +  inventory.get(0).gallons );
+        writer.write(inventory.get(1).typeOfGas + "," + inventory.get(1).amountMoney + "," + inventory.get(1).gallons);
+        writer.write(inventory.get(2).typeOfGas + "," + inventory.get(2).amountMoney + "," + inventory.get(2).gallons);
+    }
+
+    public static void updateTransactions(String gastype, double printGallons, double printCost) throws IOException {
+        FileWriter writer = new FileWriter("/home/basecamp/IdeaProjects/GasPump/src/com/company/transactions.txt",true);
+        //once the file is opened and written into, it has to be closed also
+        writer.write("\n" + gastype + ", " + printGallons + ", " + printCost);
+        writer.close();
+    }
+
+
+//    public static void main(String[] args) throws IOException {
 //        Scanner scan = new Scanner(System.in);
 //        greetings();
 //        System.out.println("Which one would you like?   (Please Choose a Number)");
@@ -77,6 +92,5 @@ public class Main {
 //            Double gallons = scan.nextDouble();
 //            paying(type, paymentType, gallons);
 //        }
-        loadInventoryInFile();
-    }
+//    }
 }
