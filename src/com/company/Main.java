@@ -18,23 +18,14 @@ public class Main {
 
     public static String whatTypeGas(Integer type){
         String gastype = "";
-        if (type.equals("87")) {
+        if (type.equals(87)) {
             gastype = "Regular";
-        } else if (type.equals("89")) {
+        } else if (type.equals(89)) {
             gastype = "Mid-Grade";
-        } else if (type.equals("92")) {
+        } else if (type.equals(92)) {
             gastype = "Premium";
         }return gastype;
     }
-//    public static void paying(Integer type, Integer payment, Double money) {
-//        if (payment.equals(1)) {
-//            Converting moneyToGallons = new Converting(type);
-//            System.out.println(moneyToGallons.prePay(money, type));
-//        } else if (payment.equals(2)) {
-//            Converting gallonsToMoney = new Converting(type);
-//            System.out.println(gallonsToMoney.payAfter(money, type));
-//        }
-//    }
 
     public static ArrayList<Converting> loadInventoryInFile() throws IOException {
         BufferedReader br = null;
@@ -83,7 +74,6 @@ public class Main {
         writer.close();
     }
 
-
     public static void main(String[] args) throws IOException {
         Scanner scan = new Scanner(System.in);
         greetings();
@@ -91,14 +81,24 @@ public class Main {
         Integer type = scan.nextInt();
         payType();
         Integer paymentType = scan.nextInt();
+
         if (paymentType.equals(1)) {
+            String gasType = whatTypeGas(type);
             System.out.println("How much would you like to put? ");
             Double money = scan.nextDouble();
-//            paying(type, paymentType, money);
+            Converting displayGallons = new Converting(gasType, 0.0, money);
+            Double totalGals = displayGallons.prePay(money, type);
+
+            System.out.println("Type of Gas Pumped: " + gasType);
+            System.out.println("Total Gallons: " + totalGals);
+            System.out.println("Total Paid: " + money);
         }
         else if (paymentType.equals(2)){
+            String gasType = whatTypeGas(type);
             System.out.println("How many gallons would you like? ");
             Double gallons = scan.nextDouble();
+            payType();
+
 //            paying(type, paymentType, gallons);
         }
     }
