@@ -1,4 +1,4 @@
-Number Gas-Type Price Gallons
-87 Regular 2.05 5000
-89 Mid-Grade 2.13 5000
-93 Premium 2.22 5000
+Number, Amount-of-Money, Gallons
+87, 0.0, 5000
+89, 0.0, 5000
+93, 0.0, 5000
