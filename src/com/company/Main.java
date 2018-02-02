@@ -40,7 +40,6 @@ public class Main {
         String[] MidList = br.readLine().toString().split(", ");
         String[] PremiumList = br.readLine().toString().split(", ");
 
-
         Converting Regular =  new Converting(RegularList[0], Double.parseDouble(RegularList[1]), Double.parseDouble(RegularList[2]) );
         Converting MidGrade = new Converting(MidList[0], Double.parseDouble(MidList[1]), Double.parseDouble(MidList[2]));
         Converting Premium = new Converting(PremiumList[0], Double.parseDouble(PremiumList[1]), Double.parseDouble(PremiumList[2]));
@@ -63,9 +62,11 @@ public class Main {
 
     public static void saveInventoryInFile(ArrayList<Converting> inventory) throws IOException {
         FileWriter writer = new FileWriter("/home/basecamp/IdeaProjects/GasPump/src/com/company/inventory.txt");
-        writer.write(inventory.get(0).typeOfGas + "," + inventory.get(0).amountMoney + "," +  inventory.get(0).gallons );
-        writer.write(inventory.get(1).typeOfGas + "," + inventory.get(1).amountMoney + "," + inventory.get(1).gallons);
-        writer.write(inventory.get(2).typeOfGas + "," + inventory.get(2).amountMoney + "," + inventory.get(2).gallons);
+        writer.write("Number, Amount-of-Money, Gallons" + "\n");
+        writer.write(inventory.get(0).typeOfGas + ", " + inventory.get(0).gallons + ", " +  inventory.get(0).amountMoney + "\n" );
+        writer.write(inventory.get(1).typeOfGas + ", " + inventory.get(1).gallons + ", " + inventory.get(1).amountMoney + "\n");
+        writer.write(inventory.get(2).typeOfGas + ", " + inventory.get(2).gallons + ", " + inventory.get(2).amountMoney);
+        writer.close();
     }
 
     public static void updateTransactions(String gastype, double printGallons, double printCost) throws IOException {
@@ -74,6 +75,20 @@ public class Main {
         writer.close();
     }
 
+    public static void updatingInventory(String gasType, Double money, Double gallons) throws IOException{
+        ArrayList<Converting> inventory = loadInventoryInFile();
+        if (gasType.equals("Regular")){
+            inventory.get(0).gallons += gallons;
+            inventory.get(0).amountMoney -= money;
+        }else if (gasType.equals("Mid-Grade")){
+            inventory.get(1).amountMoney += money;
+            inventory.get(1).gallons -= gallons;
+        }else if (gasType.equals("Premium")){
+            inventory.get(2).amountMoney += money;
+            inventory.get(2).gallons -= gallons;
+        }
+        saveInventoryInFile(inventory);
+    }
 
     public static void displayCustomerInfo (String gasType, Double gallons, Double money) {
         System.out.println("Type of Gas Pumped: " + gasType);
@@ -100,6 +115,8 @@ public class Main {
             displayCustomerInfo(gasType, totalGals, money);
 
             updateTransactions(gasType, totalGals, money);
+
+            updatingInventory(gasType, totalGals, money);
         }
         else if (paymentType.equals(2)){
             String gasType = whatTypeGas(type);
@@ -112,6 +129,7 @@ public class Main {
 
             updateTransactions(gasType, gallons, totalMoney);
 
+            updatingInventory(gasType, gallons, totalMoney);
         }
     }
 }
