@@ -105,10 +105,6 @@ public class Main {
         if (MorC.equals("Everest1953")) {
             System.out.println("1 - View Gas Tank\n2 - View Refill Gas Tanks\n3 - Store Income\n4 - View Transactions\n5 - Exit");
             String choice = scan.next();
-            // Manager.viewTransactions();
-            // Manager.viewInventory();
-            // Manager.viewIncome();
-            // Manager.refillTanks();
             if (choice.equals("1")) {
                 Manager.viewInventory();
             } else if (choice.equals("2")) {
